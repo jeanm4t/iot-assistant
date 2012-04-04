@@ -18,6 +18,7 @@ class PrintoutsController < ApplicationController
     end
   end
 
+  # Public: Show a printout's content (as the printer would have received it).
   def show
     printout = current_user.printouts.find params[:id]
     if printout

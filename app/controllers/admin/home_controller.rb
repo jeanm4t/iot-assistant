@@ -1,14 +1,19 @@
+# Admin::HomeController controls the root administration pages.
 class Admin::HomeController < AdminController
 
+  # Index page for admin, not a lot here.
   def index
   end
 
+  # Shows the application's settings.
   def settings
   end
 
+  # Page with form for creating the printer sketch.
   def printer
   end
 
+  # Generates a printer file based on parameters.
   def printer_file
     @mac = (params[:mac] || "").split(":")
     redirect_to :back, :alert => "Please specify a valid MAC address" and return unless @mac.length == 6

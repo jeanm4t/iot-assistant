@@ -5,7 +5,8 @@ describe Admin::UsersController do
   describe "the whole controller" do
     it "requires an admin user" do
       @user = Factory :user
-      @user.update_attribute(:admin, false)
+      @user.admin = false
+      @user.save!
       session[:user_id] = @user.id
       get 'index'
       response.status.should == 302
@@ -36,7 +37,7 @@ describe Admin::UsersController do
     end
 
     describe "PUT /users/:id" do
-      it "should update a user's attributes" do
+      it "should update a user's attributes (even protected ones)" do
         @user = Factory :user
         put 'update', :id => @user.id, :user => {:firstname => "David"}
         User.find(@user.id).firstname.should == "David"

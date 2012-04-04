@@ -2,24 +2,32 @@ class UsersController < ApplicationController
 
   before_filter :authorized!
 
+  # Public: User returning from the Twitter oAuth cycle will end up here.
   def twitter_callback
     auth = request.env["omniauth.auth"]
-    current_user.update_attributes twitter_username: auth["info"]["nickname"],
+    current_user.assign_attributes({twitter_username: auth["info"]["nickname"],
                                    twitter_token: auth["credentials"]["token"],
-                                   twitter_secret: auth["credentials"]["secret"]
-    redirect_to :user_settings, :notice => "Your Twitter account is now connected!"
+                                   twitter_secret: auth["credentials"]["secret"]}, :as => :admin)
+    if current_user.save
+      redirect_to :user_settings, :notice => "Your Twitter account is now connected!"
+    else
+      redirect_to :user_settings, :alert => "Something went wrong: #{current_user.errors.full_messages.join(",")}"
+    end
   end
 
+  # Public: Unset Twitter credentials (unlinking account).
   def destroy_twitter
-    current_user.update_attributes twitter_username: nil,
+    current_user.update_attributes({twitter_username: nil,
                                    twitter_token: nil,
-                                   twitter_secret: nil
+                                   twitter_secret: nil}, :as => :admin)
     redirect_to :user_settings, :notice => "Your Twitter account is no longer connected"
   end
 
+  # Public: Settings page for user.
   def settings  
   end
 
+  # Public: Update a user's settings.
   def update
 
     attrs = {}
@@ -27,9 +35,9 @@ class UsersController < ApplicationController
       attrs[option] = params[option] ? true : false
     }
 
-    current_user.update_attributes attrs
-
     current_schedule = current_user.schedule
+
+    current_user.assign_attributes attrs
 
     current_user.schedule[:days] = params[:dow] ? params[:dow].map{|k,v| k.to_i} : []
     current_user.schedule[:hour] = params[:hour].to_i 

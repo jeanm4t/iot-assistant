@@ -41,7 +41,8 @@ class ScheduledPrints
         else
           user.printouts.create(content: @av.render(:template => "home/printer", :locals => {:user => user}))
         end
-        user.update_attribute(:last_scheduled_print_at, Time.now)
+        user.last_scheduled_print_at = Time.now
+        user.save
       end
 
       # Revert to original time zone

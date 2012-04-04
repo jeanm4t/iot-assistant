@@ -3,7 +3,8 @@ class AddExpiresAtToUsers < ActiveRecord::Migration
     add_column :users, :expires_at, :datetime
 
     User.all.each do |user|
-      user.update_attribute(:expires_at, Time.now)
+      user.expires_at = Time.now
+      user.save!
     end
   end
 end

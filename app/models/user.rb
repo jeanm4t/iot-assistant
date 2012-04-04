@@ -14,6 +14,17 @@ class User < ActiveRecord::Base
   before_validation   :unset_twitter
   before_create :set_default_schedule, :empty_calendars, :first_admin
 
+  attr_accessible :image, :name, :firstname, :surname, :schedule,
+    :calendars, :print_calendar, :print_email, :print_qotd, :print_stories,
+    :print_twitter_timeline, :time_zone
+
+  attr_accessible :image, :name, :firstname, :surname, :schedule,
+    :calendars, :print_calendar, :print_email, :print_qotd, :print_stories,
+    :print_twitter_timeline, :time_zone, :as => [:admin, :default]
+  attr_accessible :uid, :token, :email, :admin, :twitter_token,
+    :twitter_secret, :last_scheduled_print_at, :twitter_username,
+    :refresh_token, :expires_at, :as => :admin
+
   # Public: Returns a list of the user's calendars in Google Calendar. See
   # <https://developers.google.com/google-apps/calendar/v3/reference/calendarList/list>
   # for more information.
@@ -165,8 +176,9 @@ class User < ActiveRecord::Base
     if response.success?
       token_json = Hashie::Mash.new(JSON.parse(response.body))
       expires_at = Time.now + token_json.expires_in
-      self.update_attributes token: token_json.access_token,
-                             expires_at: expires_at
+      self.assign_attributes({token: token_json.access_token,
+                              expires_at: expires_at}, :as => :admin)
+      self.save
     end
 
     return self.token

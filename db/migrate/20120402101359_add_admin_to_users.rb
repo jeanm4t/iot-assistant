@@ -5,7 +5,8 @@ class AddAdminToUsers < ActiveRecord::Migration
     new_admin = User.first
     if new_admin
       puts "Making #{new_admin.email} the first admin user."
-      new_admin.update_attribute(:admin, true)
+      new_admin.admin = true
+      new_admin.save!
     end
 
   end
