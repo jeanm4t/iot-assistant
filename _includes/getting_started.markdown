@@ -13,7 +13,7 @@ If deploying to Heroku, you do not need these things set up locally.
 
 All the code is available on [Github][], you can download a copy using git:
 
-    git clone git://github.com/newsinternational/iot-assistant
+    git clone git://github.com/newsinternational/iot-assistant.git
 
 ## Configuration
 
