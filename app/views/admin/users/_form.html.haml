@@ -1,0 +1,28 @@
+%h2.lead To adjust settings not on this form, log in as the user.
+
+= form_for [:admin, @user], :html => {:class => "well form-horizontal"} do |f|
+  %fieldset
+    %legend User information
+
+    - [:name, :firstname, :surname, :image, :twitter_username].each do |field|
+      .control-group
+        = f.label field, :class => "control-label"
+        .controls
+          = f.text_field field
+
+  %fieldset
+    %legend Credentials
+
+    - [:token, :refresh_token, :twitter_token, :twitter_secret].each do |field|
+      .control-group
+        = f.label field, :class => "control-label"
+        .controls
+          = f.text_field field, :class => "input-xlarge"
+
+    .control-group
+      = f.label :admin, :class => "control-label"
+      .controls
+        = f.check_box :admin
+
+  .form-actions
+    = f.submit :class => "btn btn-primary"

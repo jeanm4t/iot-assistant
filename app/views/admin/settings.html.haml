@@ -1,0 +1,49 @@
+%h1.page-header
+  %code puts APP_CONFIG.inspect
+
+%h2.lead
+  One day you will be able to edit these settings, but for now you 
+  have to edit
+  %code config/config.yml
+  yourself.
+
+%form.form-horizontal.well
+  %fieldset
+    %legend Application
+
+    .control-group
+      %label.control-label{:for => "signups_enabled"} Signups Enabled?
+      .controls
+        %input{:name => "signups_enabled", :type => "checkbox", :checked => APP_CONFIG[:signups_enabled]}
+
+  %fieldset
+    %legend Google
+
+    .control-group
+      %label.control-label{:for => "google[client_id]"} Client ID
+      .controls
+        %input.input-xlarge{:name => "google[client_id]", :type => "text", :value => APP_CONFIG[:google][:client_id]}
+
+    .control-group
+      %label.control-label{:for => "google[client_secret]"} Client Secret
+      .controls
+        %input.input-xlarge{:name => "google[client_secret]", :type => "text", :value => APP_CONFIG[:google][:client_secret]}
+        %p.help-block
+          Get these from the
+          =link_to "Google API console", "https://code.google.com/apis/console/"
+
+  %fieldset
+    %legend Twitter
+
+    .control-group
+      %label.control-label{:for => "twitter[key]"} Key
+      .controls
+        %input.input-xlarge{:name => "twitter[key]", :type => "text", :value => APP_CONFIG[:twitter][:key]}
+
+    .control-group
+      %label.control-label{:for => "twitter[secret]"} Secret
+      .controls
+        %input.input-xlarge{:name => "twitter[secret]", :type => "text", :value => APP_CONFIG[:twitter][:secret]}
+        %p.help-block
+          Get these from
+          = link_to "Your Twitter Applications page", "https://dev.twitter.com/apps"

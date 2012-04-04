@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+  database: iot_printer_front_development
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: iot_printer_front_test
+  pool: 5
+  timeout: 5000
+
+production:
+  # Set your production DB here. If deploying to Heroku leave blank.

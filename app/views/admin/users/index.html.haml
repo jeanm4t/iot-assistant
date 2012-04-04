@@ -1,0 +1,27 @@
+%h1.page-header
+  Here are all my users
+  %small What do you want to do with them, #{current_user.firstname}?
+
+=paginate @users
+
+%table.table
+  %tr
+    %th Email
+    %th Name
+    %th Number of printouts
+    %th
+  - @users.each do |user|
+    %tr
+      %td
+        = user.email
+        - if user.admin
+          %span.label.label-important Admin
+        - if current_user == user
+          %span.label.label-success You
+      %td #{user.firstname} #{user.surname}
+      %td= user.printouts.count
+      %td
+        = link_to "Edit", edit_admin_user_path(user), :class => "btn btn-info"
+        - unless current_user == user
+          = link_to "Delete", admin_user_path(user), :class => "btn btn-danger", :method => "delete", :confirm => "Are you sure?"
+          = link_to "Log in as #{user.firstname}", login_as_admin_user_path(user), :method => "post", :class => "btn btn-info"

@@ -1,0 +1,48 @@
+!!! 5
+%html
+  %head
+    %title Internet of Things Assistant
+    = stylesheet_link_tag :application
+    = javascript_include_tag :application
+    = csrf_meta_tags
+
+  %body{:class => yield(:body)}
+
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to "Internet of Things Assistant", root_url, :class => "brand"
+
+          %ul.nav
+            %li{:class => current_page?(root_path) ? "active" : nil}= link_to "Home", root_url
+            - if current_user
+              %li{:class => current_page?(printouts_path) ? "active" : nil}= link_to "Printouts", printouts_path
+              %li{:class => current_page?(user_settings_path) ? "active" : nil}= link_to "Settings", user_settings_path
+            - if admin?
+              %li{:class => params[:controller].starts_with?("admin/") ? "active" : nil}= link_to "Admin", admin_path
+
+          - if current_user
+            %ul.nav
+              %li
+
+          %ul.pull-right.nav
+            - if current_user
+              %li
+                %img.profile{:src => current_user.image, :width => "30px"}
+              %li
+                = link_to "Log out #{current_user.email}", logout_path
+            - else
+              %li
+                = link_to "Log in", "#{root_url}auth/google"
+
+    = yield :subnav
+
+    .container
+
+      #alerts
+        - if alert
+          .alert.alert-error= alert
+        - if notice
+          .alert.alert-info= notice
+
+      = yield

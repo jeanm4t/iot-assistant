@@ -1,0 +1,2 @@
+module PrintoutsHelper
+end

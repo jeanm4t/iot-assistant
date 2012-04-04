@@ -1,0 +1,106 @@
+{
+ "kind": "calendar#events",
+ "etag": "\"Uc22fccH1YXejhT6vhI4NQcB8_s/KXgbk8pGRsvTdWVjCZn6_u1HMKE\"",
+ "summary": "david.somers@newsint.co.uk",
+ "updated": "2012-03-15T10:50:55.000Z",
+ "timeZone": "Europe/London",
+ "accessRole": "owner",
+ "defaultReminders": [
+  {
+   "method": "email",
+   "minutes": 10
+  },
+  {
+   "method": "popup",
+   "minutes": 10
+  }
+ ],
+ "items": [
+  {
+   "kind": "calendar#event",
+   "etag": "\"Uc22fccH1YXejhT6vhI4NQcB8_s/Q0ppLV92VGFKaEVBQUFBQUFBQUFBQT09\"",
+   "id": "8fak1uaedh0cfrehur666rimhc",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=OGZhazF1YWVkaDBjZnJlaHVyNjY2cmltaGMgZGF2aWQuc29tZXJzQG5ld3NpbnQuY28udWs",
+   "created": "2012-02-24T09:09:51.000Z",
+   "updated": "2012-02-24T09:09:51.000Z",
+   "summary": "Example Event 1",
+   "location": "Example location",
+   "creator": {
+    "email": "david.somers@newsint.co.uk"
+   },
+   "organizer": {
+    "email": "david.somers@newsint.co.uk"
+   },
+   "start": {
+    "dateTime": "2012-03-15T14:00:00Z"
+   },
+   "end": {
+    "dateTime": "2012-03-15T15:00:00Z"
+   },
+   "iCalUID": "8fak1uaedh0cfrehur666rimhc@google.com",
+   "sequence": 0,
+   "guestsCanInviteOthers": true,
+   "guestsCanSeeOtherGuests": true,
+   "reminders": {
+    "useDefault": true
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "etag": "\"Uc22fccH1YXejhT6vhI4NQcB8_s/Q0lpa29NaTFKaEdoT1NvQUFBQUFBQT09\"",
+   "id": "8gl63vo86quqosk2pi9o9qr8mc_20120315T170000Z",
+   "status": "confirmed",
+   "htmlLink": "https://www.google.com/calendar/event?eid=OGdsNjN2bzg2cXVxb3NrMnBpOW85cXI4bWNfMjAxMjAzMTVUMTcwMDAwWiBkYXZpZC5zb21lcnNAbmV3c2ludC5jby51aw",
+   "created": "2011-10-28T12:58:25.000Z",
+   "updated": "2011-10-31T08:11:01.000Z",
+   "summary": "Example Event 2",
+   "creator": {
+    "email": "peter.macrobert@newsint.co.uk"
+   },
+   "organizer": {
+    "email": "peter.macrobert@newsint.co.uk"
+   },
+   "start": {
+    "dateTime": "2012-03-15T17:00:00Z"
+   },
+   "end": {
+    "dateTime": "2012-03-15T17:10:00Z"
+   },
+   "recurringEventId": "8gl63vo86quqosk2pi9o9qr8mc",
+   "originalStartTime": {
+    "dateTime": "2012-03-15T17:00:00Z",
+    "timeZone": "Europe/London"
+   },
+   "iCalUID": "8gl63vo86quqosk2pi9o9qr8mc@google.com",
+   "sequence": 0,
+   "attendees": [
+    {
+     "email": "david.somers@newsint.co.uk",
+     "self": true,
+     "responseStatus": "accepted"
+    },
+    {
+     "email": "peter.macrobert@newsint.co.uk",
+     "organizer": true,
+     "responseStatus": "accepted"
+    }
+   ],
+   "guestsCanInviteOthers": true,
+   "guestsCanSeeOtherGuests": true,
+   "reminders": {
+    "useDefault": false,
+    "overrides": [
+     {
+      "method": "popup",
+      "minutes": 90
+     },
+     {
+      "method": "email",
+      "minutes": 90
+     }
+    ]
+   }
+  }
+ ]
+}

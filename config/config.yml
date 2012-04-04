@@ -1,0 +1,37 @@
+defaults: &defaults
+  :google:
+    :client_id: <%= ENV["GOOGLE_CLIENT_ID"] %>
+    :client_secret: <%= ENV["GOOGLE_CLIENT_SECRET"] %>
+
+  # To allow users to interact with Twitter, please provide your application's
+  # consumer key and consumer secret. You can create/obtain these at
+  # http://dev.twitter.com/apps
+  :twitter:
+    :key: <%= ENV["TWITTER_CONSUMER_KEY"] %>
+    :secret: <%= ENV["TWITTER_CONSUMER_SECRET"] %>
+
+  # Change this to false to disable new user signups.
+  :signups_enabled: <%= ENV["SIGNUPS_ENABLED"] || true %>
+
+  # Change this to a unique, random value that would be valid in a URL. Keep it
+  # secret!
+  :printer_key: <%= ENV["PRINTER_KEY"] || "please-specify-a-printer-key" %>
+
+development:
+  <<: *defaults
+
+  # In development, you may not want to bother using environment variables, in
+  # which case just set your configuration values here.
+  #:google:
+  #  :client_id: YOUR_GOOGLE_CLIENT_ID
+  #  :client_secret: YOUR_GOOGLE_CLIENT_SECRET
+    
+  #:twitter:
+  #  :key: YOUR_TWITTER_CONSUMER_KEY
+  #  :secret: YOUR_TWITTER_CONSUMER_SECRET
+
+test:
+  <<: *defaults
+  
+production:
+  <<: *defaults

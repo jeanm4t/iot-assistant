@@ -1,0 +1,6 @@
+%h1.page-header
+  Welcome, Master...
+  %small Nice to see you again.
+
+%h2.lead #{pluralize(User.count, "person")} are using this printer.
+%h2.lead Signups are #{APP_CONFIG[:signups_enabled] ? "enabled" : "disabled"}.

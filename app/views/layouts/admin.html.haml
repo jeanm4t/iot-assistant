@@ -1,0 +1,13 @@
+- content_for :body, "admin"
+
+- content_for :subnav do
+  .subnav.subnav-fixed
+    %ul.nav.nav-pills
+      %li{:class => current_page?(admin_users_path) ? "active" : nil}
+        = link_to "Users", admin_users_path
+      %li{:class => current_page?(admin_settings_path) ? "active" : nil}
+        = link_to "Settings", admin_settings_path
+      %li{:class => current_page?(admin_printer_path) ? "active" : nil}
+        = link_to "Printer", admin_printer_path
+
+= render :template => "layouts/application"

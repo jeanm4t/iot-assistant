@@ -1,0 +1,87 @@
+%h1.page-header Here are your settings, #{current_user.firstname}.
+
+%p.lead
+  Here you can choose what you want printed and what time you want your 
+  daily print out.
+
+= form_tag(user_settings_path, :method => "POST", :class => "form-horizontal well") do
+  %fieldset
+    %legend I want my...
+    .control-group
+      %label.control-label{:for => "print_calendar"} Calendar
+      .controls
+        = check_box_tag 'print_calendar', 'true', current_user.print_calendar
+    .control-group
+      %label.control-label{:for => "print_email"} Email
+      .controls
+        = check_box_tag 'print_email', 'true', current_user.print_email
+    .control-group
+      %label.control-label{:for => "print_qotd"} Fortune Cookie
+      .controls
+        = check_box_tag 'print_qotd', 'true', current_user.print_qotd, :disabled => which("fortune") ? false : true
+        - unless which("fortune")
+          %p.help-text Fortune is disabled because it isn't installed.
+    .control-group
+      %label.control-label{:for => "print_stories"}  Recent Stories
+      .controls
+        = check_box_tag 'print_stories', 'true', current_user.print_stories
+    - if current_user.twitter_token
+      .control-group
+        %label.control-label{:for => "print_twitter_timeline"} Twitter Timeline
+        .controls
+          = check_box_tag 'print_twitter_timeline', 'true', current_user.print_twitter_timeline
+
+    - if current_user.print_calendar
+      %legend I want these calendars...
+      - if current_user.remote_calendars
+        - current_user.remote_calendars.each do |calendar|
+          .control-group
+
+            .controls
+              %label.checkbox
+                = check_box_tag "calendars[#{calendar.id}]", calendar.summary, current_user.calendars.include?(calendar.id)
+                = calendar.summary
+      - else
+        %p Sorry, I couldn't fetch your calendars from Google :(
+
+    %legend I want it printed...
+    #time.control-group
+      .controls
+        %label.control-label{:for => "hour"} Hour:
+        = select_tag "hour", options_for_select(0..23, current_user.schedule[:hour])
+        = select_tag "min", options_for_select(%w{00 15 30 45}, current_user.schedule[:min])
+
+    .control-group
+      %label.control-label{:for => "days"} On these days:
+      .controls
+        - Date::DAYNAMES.each_with_index do |dow, i|
+          %label.checkbox.inline
+            = check_box_tag "dow[#{i}]", 1, (current_user.schedule[:days] || []).include?(i)
+            = dow.capitalize
+
+    %legend Here's some stuff about me...
+
+    - if current_user.twitter_token
+      .control-group
+        %label.control-label My Twitter handle is:
+        .controls
+          #{current_user.twitter_username}
+          &nbsp;&nbsp;
+          = link_to "Unlink from Twitter", user_twitter_path, :class => "btn btn-success", :method => "delete"
+    - else
+      .control-group
+        %label.control-label You're not connected to Twitter yet: 
+        .controls
+          = link_to "Connect to Twitter", "#{root_path}auth/twitter", :class => "btn btn-success"
+
+    .control-group
+      %label.control-label{:for => "time_zone"} My timezone is:
+      .controls
+        = select_tag "time_zone", time_zone_options_for_select(current_user.time_zone)
+
+
+    .form-actions
+
+      = submit_tag("Submit", :class => "btn btn-primary")
+
+      =link_to "Delete my account", user_path, :class => "btn btn-danger pull-right", :method => "delete", :confirm => "Are you sure? This will delete all your settings and logged printouts"

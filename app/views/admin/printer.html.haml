@@ -1,0 +1,63 @@
+%h1.page-header
+  Need help with me?
+  %small What do you need?
+
+%h2.lead
+  In order to use the Internet of Things Assistant you need to compile and
+  upload the 'remote' software to your IoT Printer.
+
+%h2.lead
+  For more information about using the Arduino development environment, have
+  a look at the
+  =link_to "Arduino homepage", "http://arduino.cc/"
+
+%h2.lead
+  For more information about assembling and using the IoT Printer itself, have
+  a look at
+  =link_to "the Adafruit tutorial", "http://wiki.ladyada.net/tutorials/products/iotp"
+
+%h2.lead
+  As well as the Arduino IDE, you will also need the
+  =link_to "thermal printer Arduino library", "https://github.com/adafruit/Adafruit-Thermal-Printer-Library"
+  in order to compile the code.
+
+= form_tag(admin_printer_file_path, :method => "get", :class => "form-horizontal well") do |f|
+  %fieldset
+    %legend
+      Use this form to configure your Arduino software and download the .ino
+      file to upload to your Arduino.
+
+    .control-group
+      %label.control-label{:for => "mac"} MAC Address
+      .controls
+        = text_field_tag :mac, nil, :placeholder => "DE:AD:BE:EF:DE:AD", :required => true
+        %p.help-text
+          This can be found on a sticker on your Ethernet shield or Arduino
+          board.
+
+    .control-group
+      %label.control-label{:for => "fallback"} Fallback IP Address
+      .controls
+        = text_field_tag :fallback, nil, :placeholder => "192.168.2.250"
+        %p.help-text
+          Fallback IP address to use if DHCP request fails, leave blank if you
+          don't know/care.
+
+    .control-group
+      %label.control-label{:for => "server"} IoT Assistant server
+      .controls
+        = text_field_tag :server, request.host, :required => true
+        %p.help-text
+          This server. Leave auto-detected value above unless you know what you
+          are doing.
+
+    .control-group
+      %label.control-label{:for => "url"} IoT Assistant URL
+      .controls
+        = text_field_tag :url, printer_path, :required => true
+        %p.help-text
+          URL the printer should poll for new printouts. Leave auto-detected
+          value above unless you know what you are doing.
+
+    .form-actions
+      =submit_tag "Download .ino file", :class => "btn btn-primary"

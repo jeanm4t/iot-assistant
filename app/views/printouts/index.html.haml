@@ -1,0 +1,19 @@
+%h1.page-header Here's a log of everything I've ever printed.
+
+=paginate @printouts
+
+%table.table
+  %tr
+    %th Who
+    %th When
+    %th Printed?
+    %th
+  - @printouts.each do |printout|
+    %tr
+      %td= printout.user ? printout.user.name : "Deleted user"
+      %td= printout.created_at.in_time_zone current_user.time_zone
+      %td= printout.printed ? "Yes" : "No"
+      %td
+        - if current_user and printout.user == current_user
+          = link_to "View", printout_path(printout), :class => "btn btn-primary"
+          = link_to "Delete", printout_path(printout), :class => "btn btn-danger", :method => "delete"

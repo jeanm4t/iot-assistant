@@ -1,0 +1,13 @@
+=image_tag "http://distilleryimage2.instagram.com/e75ee8b4690c11e1b9f1123138140926_7.jpg", :class => "pull-right", :width => "300px"
+%h1.page-header
+  #{greeting} #{current_user.firstname}!
+  %small I'm a little printer, how are you?
+
+- if current_user.schedule[:hour] and current_user.schedule[:min]
+  %h3.lead Your scheduled print out is at #{"%02d" % current_user.schedule[:hour]}:#{"%02d" % current_user.schedule[:min]}. It's #{Time.zone.now.strftime("%H:%M")} right now.
+
+%h3.lead I've printed #{@total} #{"time".pluralize(@total)}, and I've got #{@to_print} #{"thing".pluralize(@to_print)} to print!
+
+
+= link_to "Print me something!", print_path, :method => "post", :class => "btn btn-primary btn-large", :confirm => "Are you sure? Remember the environment!"
+= link_to "Show me a preview", preview_path, :class => "btn btn-info btn-large"

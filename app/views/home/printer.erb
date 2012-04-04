@@ -1,0 +1,68 @@
+<%- #                             # <- 32 char mark -%>
+bl <%= greeting -%> <%= user.firstname %>
+nl Here's your printout from
+nl <%= Time.zone.now.strftime("%d/%m at %H:%M") %>
+nl 
+<%- if user.print_email -%>
+uc Email summary
+<%- if user.mail_summary -%>
+nl You have <%= pluralize(user.unread_mail_count, 'unread email') %>.
+<%- user.unread_emails[0...3].each do |mail| -%>
+<%= raw(wrap("nl", raw( truncate_words(mail.at("title").text) + " - " + Time.zone.parse( mail.at("issued").text ).strftime("%H:%M") ))) %>
+<%- end -%>
+<%- else -%>
+nl I couldn't fetch your email information.
+<%- end -%>
+nl   
+<%- end -%>
+<%- if user.print_calendar -%>
+<%- @agenda = user.todays_agenda -%>
+uc Today's agenda
+<%- if !@agenda -%>
+nl Couldn't fetch your agenda. Maybe
+nl you need to log in again?
+nl   
+<%- else -%>
+<%- if @agenda.blank? -%>
+nl You have nothing on your agenda.
+nl Relax, read a book, write code.
+nl    
+<%- end -%>
+<%- @agenda.each do |event| -%>
+<%- if event.start.dateTime and event.end.dateTime -%>
+nc <%= Time.zone.parse(event.start.dateTime).strftime("%H:%M") -%> - <%= Time.zone.parse(event.end.dateTime).strftime("%H:%M") %>
+<%- elsif event.start.date and event.end.date -%>
+nc <%= event.start.date -%> - <%= event.end.date %>
+<%- end -%>
+<%= raw(wrap("nl", raw(event.summary))) %>
+<%= raw(wrap("nr", raw("(#{event.calendar})"))) %>
+nl    
+<%- end -%>
+<%- end -%> 
+<%- end -%>
+<%- if user.print_stories -%>
+uc Recent Stories on The Times
+<%- if recent_stories == [] -%>
+nl I couldn't get any stories.
+nl Sorry :(
+nl    
+<%- else -%>
+<%- recent_stories.each do |story| -%>
+<%= raw(wrap("nl", ascii(story))) %>
+nl   
+<%- end -%>
+<%- end -%>
+<%- end -%>
+<%- if user.print_twitter_timeline -%>
+uc Latest Tweets
+<%- Twitter.home_timeline(count: 3, exclude_replies: true).each do |tweet| -%>
+il <%= tweet.user.screen_name %>
+ul <%= tweet.created_at.in_time_zone(user.time_zone).strftime("%H:%M:%S") %>
+<%= raw(wrap("nl", raw(tweet.text))) %>
+nl 
+<%- end -%>
+<%- end -%>
+<%- if which("fortune") and user.print_qotd -%>
+uc Fortune cookie
+<%= raw(wrap("nl", raw(fortune.split("\n").join(" ")))) -%>
+<%- end -%>
