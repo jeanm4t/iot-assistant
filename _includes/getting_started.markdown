@@ -1,27 +1,30 @@
 # Getting Started
 
-## Requirements
+## Requirements for deployment
 
- - Ruby 1.9
+ - Ruby 1.9 (tested on Ruby 1.9.2)
  - Rubygems
- - SQL database (tested with PostgreSQL)
+ - SQL database (tested with PostgreSQL and MySQL)
  - [Bundler](http://gembundler.com/)
 
-If deploying to Heroku, you do not need these things set up locally.
+If you are going to deploy to Heroku, you do not need these things set up
+locally.
 
 ## Get the code
 
-All the code is available on [Github][], you can download a copy using git:
+All the code is available on [Github][], you can download a copy using Git:
 
     git clone git://github.com/newsinternational/iot-assistant.git
+
+Or you can [download it as a Zip file](https://github.com/newsinternational/iot-assistant/zipball/master).
 
 ## Configuration
 
 Configuration is done through `config/config.yml` which by default uses
 environment variables (which is suitable for deployment to Heroku). You can
 change `config.yml` for your set-up, but we advise using environment variables
-if possible as then there is no risk of revealing API keys etc. in the source
-code. The available environment variables are listed below.
+as part of the [Twelve-Factor App](http://www.12factor.net/) methodology. The
+environment variables are listed below.
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -74,9 +77,9 @@ and as such it is also used for logging in to the application.
 
 For more information about using OAuth 2.0 to access Google APIs, have a look
 at [Google's documentation][google oauth]. In short, create an application
-using the [Google API console][google console] and copy the client ID and secret. The callback
-URL should be set based on where you are going to deploy the IoT assistant, for
-example:
+using the [Google API console][google console], set up OAuth 2.0 for that
+application and then copy the client ID and secret. The callback URL should be
+set based on where you are going to deploy IoT Assistant, for example:
 
     http://my-iot-assistant.herokuapp.com/auth/google/callback
 
@@ -86,8 +89,8 @@ application.
 
 ### Twitter
 
-You can optionally configure IoT Assistant with a set of Twitter OAuth keys
-so that users can opt to have their printout include recent tweets from people
+You can optionally configure IoT Assistant with a set of Twitter OAuth keys so
+that users can opt to have their printout include recent tweets from people
 they follow. You can get a set of these from the [Twitter Developer site][twitter].
 
 ## Deployment
@@ -163,7 +166,30 @@ It's free to sign up.
 7. You're done! Now go visit your Heroku app (whatever name you gave it) and
    log in. **The first user that logs in will be the first admin user**.
 
+### Setting up your printer
 
+You should probably be familiar with the basics of the Arduino development
+process. Given that you have bought an IoT Printer, this documentations assumes
+you are.
+
+1. Assemble your IoT Printer.
+
+2. Log in to your IoT Assistant and click on Admin, then 'Printer'.
+
+3. Fill in the form. Make sure the auto-filled server and URL look correct.
+
+4. Click to download the .ino file.
+
+5. Open it in the Arduino IDE (you will probably get a prompt about moving it
+   to a folder. Accept. If it fails, do it yourself).
+
+6. Compile and upload to your IoT Printer Arduino.
+
+7. You're all set! Hook it up to a network and try manually printing something
+   from your IoT Assistant (on the home page when you are logged in).
+
+If you have problems, try using the serial console which will output some
+debug information.
 
 [github]: https://github.com/newsinternational/iot-assistant
 [google oauth]: https://developers.google.com/accounts/docs/OAuth2

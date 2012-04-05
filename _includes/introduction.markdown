@@ -47,14 +47,14 @@ A picture tells a thousand words.
  - On-demand printing; print whenever you like at the touch of a button.
  - Administration interface for configuring your Assistant; e.g. disallowing
    new user creation and downloading the code for your Printer.
- - The application can be deployed on [Heroku](http://heroku.com) using the
-   cedar stack.
+ - The application can be deployed on [Heroku](http://heroku.com).
 
 In addition, the following 'modules' for the printouts are included by default:
 
  - Google Calendar daily agenda.
  - Unread email count + top 3 emails in your inbox.
- - A fortune cookie (if [fortune][] is installed).
+ - A fortune cookie (if [fortune][] is installed, unfortunately not available
+   on Heroku).
  - Recent news stories from [The Times](http://thetimes.co.uk).
  - Latest tweets from your Twitter timeline.
 
