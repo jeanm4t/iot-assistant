@@ -36,9 +36,9 @@
           board.
 
     .control-group
-      %label.control-label{:for => "fallback"} Fallback IP Address
+      %label.control-label{:for => "ip"} Fallback IP Address
       .controls
-        = text_field_tag :fallback, nil, :placeholder => "192.168.2.250"
+        = text_field_tag :ip, nil, :placeholder => "192.168.2.250"
         %p.help-text
           Fallback IP address to use if DHCP request fails, leave blank if you
           don't know/care.

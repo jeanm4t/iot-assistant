@@ -80,6 +80,11 @@ describe Admin::HomeController do
         response.body.should include("0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xAD")
       end
 
+      it "adds the IP address" do
+        get "printer_file", @params
+        response.body.should include("ip(192,168,0,1)")
+      end
+
     end
 
   end
