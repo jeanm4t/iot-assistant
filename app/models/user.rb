@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   validates :firstname, :time_zone, :presence => true
 
-  before_validation   :unset_twitter
+  before_save   :check_twitter_option
   before_create :set_default_schedule, :empty_calendars, :first_admin
 
   attr_accessible :image, :name, :firstname, :surname, :schedule,
@@ -130,8 +130,8 @@ class User < ActiveRecord::Base
   
   private
   # Private: Force no twitter timeline if no twitter creds
-  def unset_twitter
-    print_twitter_timeline = false unless twitter_token
+  def check_twitter_option
+    self.print_twitter_timeline = false unless self.twitter_token
     true
   end
 
